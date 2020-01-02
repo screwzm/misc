@@ -3,12 +3,14 @@ from random import seed
 from random import randint
 import tabulate
 import time
+import datetime
 
 generatedCalc = {}
 resultList = []
 
-TOTOL_QUESTION_CNT = 10
+TOTOL_QUESTION_CNT = 20
 correctAnswerCnt = 0
+startTs = datetime.datetime.now()
 for id in range(TOTOL_QUESTION_CNT):
     while True:
         seed(int(time.time()))
@@ -34,7 +36,10 @@ for id in range(TOTOL_QUESTION_CNT):
     generatedCalc[expr] = currentResultEntry
     resultList.append(currentResultEntry)
 
+endTs = datetime.datetime.now()
+ts = endTs.strftime('%Y-%m-%d %H-%M-%S')
+duration = endTs - startTs
 summary = ['Points', '', '', '', int(correctAnswerCnt/TOTOL_QUESTION_CNT*100)]
 resultList.append(summary)
-print("==== All Questions Finished ====")
+print(f"[{ts}] == All Questions Finished in {duration}")
 print(tabulate.tabulate(resultList, headers=['ID', 'Question', 'ExpectedAnswer', 'YourAnswer', 'PointGot']))
